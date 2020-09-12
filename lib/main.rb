@@ -35,11 +35,40 @@ p list.tail
 # puts
 
 
-#'Testing of printitall'
-# list.printitall list.head
-
 # testing of 'size
 # list.size
 
-# testing of 'at'
-p list.at 1
+#test head_node
+# list.head_node
+
+#test tail_node
+# list.tail_node
+
+#test 'at'
+# p list.at 0
+#below is how we will return for the 'at'
+# p list.head.next_node.to_s
+
+
+#test 'pop'
+# puts
+# p 'below is pop'
+# p list.pop
+# p 'here is tail'
+# p list.tail
+# p 'here is head'
+# p list.head
+
+#test 'contains?'
+# p list.contains? 11
+
+#test 'find
+# p list.find 4
+
+#this is to_s but ug ug 
+#'Testing of printitall'
+# list.printitall list.head
+puts
+#test 'insert_at'
+list.insert_at 2, 0
+p list.head

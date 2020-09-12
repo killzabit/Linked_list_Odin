@@ -38,15 +38,78 @@ class LinkedList
     puts " The list is #{i} node/s long"
   end
 
-  # def head_node
+  def head_node
+    p @head.value
+  end
+
+  def tail_node
+    p @tail.value
+  end
 
 
   def at(index)
     current_node = @head
-    return current_node.itself
+    i = 0
+    loop do
+      return current_node.Node if i == index
+      current_node = current_node.next_node
+      i += 1
+    end
   end
 
+  def pop
+    current_node = @head
+    prev_node = nil
+    loop do
+      break if current_node.next_node == nil
+      prev_node = current_node
+      current_node = current_node.next_node
+    end
+    prev_node.next_node = nil
+    @tail = prev_node
+  end
 
+  def contains?(value)
+    current_node = @head
+    loop do
+      return true if current_node.value == value
+      return false if current_node.next_node == nil
+      current_node = current_node.next_node
+    end
+  end
+
+  def find(value)
+    current_node = @head
+    i = 0
+    loop do
+      current_node.value == value ? (return i) : i += 1
+      current_node = current_node.next_node
+    end
+    nil
+  end
+  
+  def insert_at(value, index)
+    current_node = @head
+    prev_node = nil
+    node = Node.new value
+    i = 0
+    loop do
+      if i == index
+        return prepend value if i == 0
+        p node
+        prev_node.next_node = node
+        node.next_node = current_node
+        puts "here: #{p node}"
+        puts "prev: #{p prev_node}"
+        break
+      else
+        break if current_node.next_node == nil
+        prev_node = current_node
+        current_node = current_node.next_node
+        i += 1
+      end
+    end
+  end
 
   def printitall(node_start)
     current_node = node_start

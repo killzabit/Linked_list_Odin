@@ -9,10 +9,4 @@ class Node
     @next_node = next_node
   end
 
-  # def value(value=nil, next_node=nil)
-  #   return value, next_node
-  # end
-    
-
-
 end
