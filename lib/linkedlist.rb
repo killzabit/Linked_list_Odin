@@ -1,5 +1,6 @@
+# frozen_string_literal: true
 
-
+# A standard linked list, can be expanded further if needed
 class LinkedList
   attr_accessor :head, :tail
   def initialize
@@ -7,8 +8,8 @@ class LinkedList
     @tail = nil
   end
 
-  def append(value=nil, next_node=nil)
-    if @tail == nil
+  def append(value = nil, next_node = nil)
+    if @tail.nil?
       @tail = Node.new value, next_node
       @head.next_node = @tail
     else
@@ -27,13 +28,13 @@ class LinkedList
     i = 0
     current_node = @head
     loop do
-      if current_node.next_node == nil
+      if current_node.next_node.nil?
         i += 1
         break
       else
-        i += 1
         current_node = current_node.next_node
       end
+      i += 1
     end
     puts " The list is #{i} node/s long"
   end
@@ -46,12 +47,12 @@ class LinkedList
     p @tail.value
   end
 
-
   def at(index)
     current_node = @head
     i = 0
     loop do
-      return current_node.Node if i == index
+      return current_node.to_s if i == index
+
       current_node = current_node.next_node
       i += 1
     end
@@ -61,7 +62,8 @@ class LinkedList
     current_node = @head
     prev_node = nil
     loop do
-      break if current_node.next_node == nil
+      break if current_node.next_node.nil?
+
       prev_node = current_node
       current_node = current_node.next_node
     end
@@ -73,7 +75,9 @@ class LinkedList
     current_node = @head
     loop do
       return true if current_node.value == value
-      return false if current_node.next_node == nil
+
+      return false if current_node.next_node.nil?
+
       current_node = current_node.next_node
     end
   end
@@ -82,12 +86,12 @@ class LinkedList
     current_node = @head
     i = 0
     loop do
+      return nil if current_node.next_node.nil? && !current_node.value == value
       current_node.value == value ? (return i) : i += 1
-      current_node = current_node.next_node
+      current_node.next_node.nil? ? (return nil) : current_node = current_node.next_node
     end
-    nil
   end
-  
+
   def insert_at(value, index)
     current_node = @head
     prev_node = nil
@@ -95,15 +99,34 @@ class LinkedList
     i = 0
     loop do
       if i == index
-        return prepend value if i == 0
-        p node
+        return prepend value if i.zero?
+
         prev_node.next_node = node
         node.next_node = current_node
-        puts "here: #{p node}"
-        puts "prev: #{p prev_node}"
         break
       else
-        break if current_node.next_node == nil
+        break if current_node.next_node.nil?
+
+        prev_node = current_node
+        current_node = current_node.next_node
+        i += 1
+      end
+    end
+  end
+
+  def remove_at(index)
+    current_node = @head
+    prev_node = nil
+    i = 0
+    loop do
+      if i == index
+        return @head = current_node.next_node if i.zero?
+
+        prev_node.next_node = current_node.next_node
+        break
+      else
+        break if current_node.next_node.nil?
+
         prev_node = current_node
         current_node = current_node.next_node
         i += 1
@@ -113,17 +136,13 @@ class LinkedList
 
   def printitall(node_start)
     current_node = node_start
-    next_node_val = current_node.next_node
     loop do
-      puts "Current node value: #{current_node.value}"
-      puts "The next node is #{current_node.next_node}"
+      puts "Node value: #{current_node.value}"
       puts
-      break if current_node.next_node == nil
+      break if current_node.next_node.nil?
+
       current_node = current_node.next_node
     end
     puts 'you printed them all bud'
   end
-
-  
-
 end
